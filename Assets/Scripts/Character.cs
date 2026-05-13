@@ -3,43 +3,42 @@ using UnityEngine.InputSystem;
 
 public class Character : MonoBehaviour
 {
-    public Sprite leftSprite;  // 왼쪽 이미지
-    public Sprite rightSprite; // 오른쪽 이미지
+    // 캐릭터 좌우
+    public Sprite leftSprite;
+    public Sprite rightSprite;
 
     SpriteRenderer sr;
 
-    private float moveSpeed = 3f;
-    float minX, maxX, minY, maxY; // 이동 가능한 범위
+    private float moveSpeed = 3f; // 캐릭터 이동 속도
+    // 캐릭터 이동범위 제한
+    public SpriteRenderer background;
+    float bgMinX, bgMaxX, bgMinY, bgMaxY;
+    float minX, maxX, minY, maxY;
 
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
-        Camera cam = Camera.main;
 
-        float bgHalfW = 9.6f; // 1920 / 100 / 2
-        float bgHalfH = 5.4f; // 1080 / 100 / 2
+        bgMinX = background.bounds.min.x;
+        bgMaxX = background.bounds.max.x;
+        bgMinY = background.bounds.min.y;
+        bgMaxY = background.bounds.max.y;
 
-        // 캐릭터 크기 절반만큼 여백
         float halfW = sr.bounds.extents.x;
         float halfH = sr.bounds.extents.y;
 
-        minX = -bgHalfW + halfW;
-        maxX = bgHalfW - halfW;
-        minY = -bgHalfH + halfH;
-        maxY = bgHalfH - halfH;
-
+        minX = bgMinX + halfW;
+        maxX = bgMaxX - halfW;
+        minY = bgMinY + halfH;
+        maxY = bgMaxY - halfH;
     }
 
     void Update()
     {
         if (Keyboard.current.upArrowKey.isPressed || Keyboard.current.wKey.isPressed)
-        {
             transform.position += Vector3.up * moveSpeed * Time.deltaTime;
-        }
         if (Keyboard.current.downArrowKey.isPressed || Keyboard.current.sKey.isPressed)
-        {
             transform.position += Vector3.down * moveSpeed * Time.deltaTime;
-        }
         if (Keyboard.current.leftArrowKey.isPressed || Keyboard.current.aKey.isPressed)
         {
             transform.position += Vector3.left * moveSpeed * Time.deltaTime;
