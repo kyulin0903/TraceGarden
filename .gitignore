@@ -104,3 +104,11 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local only
+.AANOTES.md
+ignore.conf
+.plastic/
+/[Aa]ssets/_[Rr]ecovery*
+_github/
+Claude outputs/
